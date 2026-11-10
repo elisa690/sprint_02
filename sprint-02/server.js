@@ -9,9 +9,11 @@ function criarMensagem(id, usuario, texto) {
 }
 
 const mensagens = [
-    criarMensagem(1, 'Ana', 'Olá, Turma!'),
-    criarMensagem(2, 'Pedro', 'Servidor funciona TOP!'),
-    criarMensagem(3, 'João', 'Vamos conversar com o mensageiro local'),
+    { id: 1, usuario: "Ana", texto: "Bom dia!" },
+    { id: 2, usuario: "Pedro", texto: "Olá!" },
+    { id: 3, usuario: "Maria", texto: "Tudo bem?" },
+    { id: 4, usuario: "Lucas", texto: "Como vai?" },
+    { id: 5, usuario: "Carla", texto: "Até logo!" }
 ];
 
 function listaMensagens() {
@@ -41,3 +43,13 @@ app.get('/mensagens/:id', (req, res) => {
     res.json(mensagem);
 });
 app.listen(PORT, () => console.log(`Servidor em http://localhost:${PORT}`));
+
+function consultar(falhar = false) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            falhar
+                ? reject(new Error('Falhou'))
+                : resolve(mensagens);
+        }, 1000);
+    });
+}
